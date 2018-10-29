@@ -1,5 +1,3 @@
-package Clases;
-
 public class Jugador
 {
     char fichaAsociada;
