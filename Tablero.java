@@ -1,5 +1,3 @@
-package Clases;
-
 import java.io.IOException;
 
 /**
