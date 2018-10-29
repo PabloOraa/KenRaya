@@ -31,10 +31,7 @@ public class Tablero
 
     public boolean comprobarMovimiento(int fila, int columna)
     {
-        if(tablero[fila][columna] == ' ' && ( columna < tam && fila >= 0) && (fila < tam && columna >= 0))
-            return true;
-        else
-            return false;
+        return (tablero[fila][columna] == ' ' && ( columna < tam && fila >= 0) && (fila < tam && columna >= 0));
     }
 
     public void realizarMovimiento(int fila, int columna, Jugador jTurno)
