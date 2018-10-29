@@ -1,5 +1,3 @@
-package main;
-
 import java.util.Scanner;
 import Clases.Tablero;
 import Clases.Jugador;
@@ -15,6 +13,9 @@ public class main
         int K = 3;
         String nombre;
         Tablero tablero = new Tablero(0);
+        boolean KenRaya = false,tabl = false, valK = false, salir = false;
+        int fila,columna;
+        
         System.out.print("Introduce el nombre del primer jugador: ");
         nombre = sc.nextLine();
         Jugador j1 = new Jugador('X', nombre);
@@ -22,10 +23,8 @@ public class main
         nombre = sc.nextLine();
         Jugador j2 = new Jugador('O', nombre);
         Jugador jugador = j1;
-        boolean KenRaya = false,tabl = false;
-        int fila,columna;
         
-        while(!KenRaya)
+        while(!salir)
         {
             try
             {
@@ -37,11 +36,13 @@ public class main
                     tabl = true;
                 }
         
-                do 
-                {
-                    System.out.print("El valor K, sabiendo que debe ser menor que el tamanio del tablero y mayor que 0: ");
-                    K = Integer.parseInt(sc.nextLine());
-                } while (K > tablero.getTam() || K < 1);
+                if(!valK)
+                    do 
+                    {
+                        System.out.print("El valor K, sabiendo que debe ser menor que el tamanio del tablero y mayor que 0: ");
+                        K = Integer.parseInt(sc.nextLine());
+                    } while (K > tablero.getTam() || K < 1);
+                valK = true;
         
                 while (!tablero.comprobarLleno() && !KenRaya)
                 {
@@ -58,8 +59,6 @@ public class main
                         {
                             tablero.realizarMovimiento(fila, columna, jugador);
                             tablero.imprimirTablero();
-                            if(fila == 2 && columna == 2)
-                                System.out.print("");
                             KenRaya = tablero.comprobarKenRaya(K, fila, columna);
             
                             if (jugador.getFicha() == j1.getFicha() && !KenRaya)
@@ -76,10 +75,15 @@ public class main
                         System.out.println("Introduce un valor que no sea inferior a 0 ni superior a " + tablero.getTam());
                     }
                 }
+                salir = true;
             }
             catch(NumberFormatException e)
             {
                 System.out.println("Tienes que introducir numeros, no letras.");
+            }
+            catch(NegativeArraySizeException e)
+            {
+                System.out.println("El tamaño del tablero no puede ser neativo.");
             }
         }
 
